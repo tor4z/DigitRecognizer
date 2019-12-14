@@ -108,7 +108,7 @@ class Trainner(object):
             errs.append(err)
         
         curr_acc = torch.tensor(accs).mean().item()
-        self.writer.add_scalar('validate/loss', torch.tensor(accs).mean().item(), self.global_steps)
+        self.writer.add_scalar('validate/error', torch.tensor(errs).mean().item(), self.global_steps)
         self.writer.add_scalar('validate/acc', curr_acc, self.global_steps)
         if curr_acc > self.best_acc:
             self.best_acc = curr_acc
