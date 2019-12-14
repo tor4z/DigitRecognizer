@@ -325,3 +325,17 @@ def wide_resnet101_2(pretrained=False, progress=True, **kwargs):
                    pretrained, progress, **kwargs)
 
 
+resnets = {
+    'resnet18': resnet18,
+    'resnet34': resnet34,
+    'resnet50': resnet50,
+    'resnet101': resnet101,
+    'resnet152': resnet152,
+    'resnext50_32x4d': resnext50_32x4d,
+    'resnext101_32x8d': resnext101_32x8d
+}
+
+
+def resnet(opt):
+    resnet = resnets[opt.resnet]
+    return resnet(pretrained=False, num_classes=opt.num_classes)

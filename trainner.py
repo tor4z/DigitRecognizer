@@ -4,18 +4,18 @@ import pandas as pd
 import numpy as np
 from tqdm import tqdm
 from torch import nn
-from torch import optim
-from resnet import resnet18
+from resnet import resnet
 from torchvision.utils import make_grid
 from torch.utils.tensorboard import SummaryWriter
 import metrics
+import optim
 
 
 class Trainner(object):
     def __init__(self, opt):
         self.opt = opt
-        self.model = resnet18(pretrained=False, num_classes=opt.num_classes).to(opt.device)
-        self.optimizer = optim.Adam(self.model.parameters(), lr=opt.lr)
+        self.model = resnet(opt).to(opt.device)
+        self.optimizer = optim.optimizer(opt, self.model.parameters())
         # self.scheduler = optim.lr_scheduler.StepLR(self.optimizer, step_size=opt.step_size, gamma=opt.gamma)
         self.criterion = nn.BCEWithLogitsLoss().to(opt.device)
         log_dir = os.path.join(opt.log_dir, opt.runtime_id)
