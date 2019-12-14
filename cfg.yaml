@@ -3,7 +3,7 @@ train_path: /data/cwj/data/digit/train.csv
 test_path: /data/cwj/data/digit/test.csv
 
 # Hyper parameter
-resnet: resnet101
+resnet: resnet50
 optimizer: Adam
 epochs: 50
 batch_size: 32
@@ -11,7 +11,7 @@ pin_memory: true
 num_workers: 3
 lr: 0.001
 num_classes: 10
-train_rate: 0.8
+train_rate: 0.99
 
 step_size: 10
 gamma: 0.9
