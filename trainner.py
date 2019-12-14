@@ -32,7 +32,7 @@ class Trainner(object):
         self.writer.add_text('config', str(opt), 0)
 
         self.epoch = 0
-        self.best_acc = 0
+        self.best_acc = 0.993
         self.test_dl = None
 
     def get_pred_number(self, pred):
@@ -107,9 +107,9 @@ class Trainner(object):
             accs.append(acc)
             errs.append(err)
         
-        curr_acc = torch.tensor(errs).mean().item()
-        self.writer.add_scalar('validate/loss', curr_acc, self.global_steps)
-        self.writer.add_scalar('validate/acc', torch.tensor(accs).mean().item(), self.global_steps)
+        curr_acc = torch.tensor(accs).mean().item()
+        self.writer.add_scalar('validate/loss', torch.tensor(accs).mean().item(), self.global_steps)
+        self.writer.add_scalar('validate/acc', curr_acc, self.global_steps)
         if curr_acc > self.best_acc:
             self.best_acc = curr_acc
             self.test()
