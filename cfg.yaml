@@ -11,13 +11,13 @@ pin_memory: true
 num_workers: 3
 lr: 0.001
 num_classes: 10
-train_rate: 0.8
+train_rate: 0.99
 
 step_size: 10
-gamma: 0.9
+gamma: 0.90
 
 # Device
-device: 0
+device: 1
 
 # Result
 out_file: submit.csv
