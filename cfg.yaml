@@ -1,0 +1,30 @@
+# Dataset
+train_path: /data/cwj/data/digit/train.csv
+test_path: /data/cwj/data/digit/test.csv
+
+# Hyper parameter
+resnet: resnet18
+optimizer: Adam
+epochs: 300
+batch_size: 32
+pin_memory: true
+num_workers: 3
+lr: 1.0e-4
+num_classes: 10
+train_rate: 0.8
+
+step_size: 10
+gamma: 0.9
+
+# Device
+device: 0
+
+# Result
+out_file: submit.csv
+
+# Summary
+log_dir: runs
+runtime_id: null
+sum_freq: 200
+sum_validate_freq: 50
+disp_images: 5
