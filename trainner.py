@@ -32,6 +32,8 @@ class Trainner(object):
         self.writer.add_text('config', str(opt), 0)
 
         self.epoch = 0
+        self.best_acc = 0
+        self.test_dl = None
 
     def get_pred_number(self, pred):
         return torch.argmax(pred, dim=1)
@@ -70,7 +72,13 @@ class Trainner(object):
             self.epoch += 1
             # self.scheduler.step()
 
-    def test(self, test_dl):
+    def set_test_data(self, test_dl):
+        self.test_dl = test_dl
+
+    def test(self):
+        test_dl = self.test_dl
+        if test_dl is None:
+            raise RuntimeError('test dataload is None.')
         iterator = tqdm(test_dl, leave=True, dynamic_ncols=True)
         itre_len = len(iterator)
         result = []
@@ -99,8 +107,12 @@ class Trainner(object):
             accs.append(acc)
             errs.append(err)
         
-        self.writer.add_scalar('validate/loss', torch.tensor(errs).mean().item(), self.global_steps)
+        curr_acc = torch.tensor(errs).mean().item()
+        self.writer.add_scalar('validate/loss', curr_acc, self.global_steps)
         self.writer.add_scalar('validate/acc', torch.tensor(accs).mean().item(), self.global_steps)
+        if curr_acc > self.best_acc:
+            self.best_acc = curr_acc
+            self.test()
 
     def validate_step(self, data, label=None):
         self.model.eval()

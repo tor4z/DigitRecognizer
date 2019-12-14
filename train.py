@@ -23,8 +23,8 @@ def main(opt):
                                  pin_memory=opt.pin_memory,
                                  num_workers=opt.num_workers)
 
+    trainner.set_test_data(test_dataloader)
     trainner.train(train_dataloader, validate_dataloader)
-    trainner.test(test_dataloader)
     print('Finished.')
 
 
