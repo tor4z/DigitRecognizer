@@ -5,11 +5,11 @@ test_path: /data/cwj/data/digit/test.csv
 # Hyper parameter
 resnet: resnet18
 optimizer: Adam
-epochs: 300
+epochs: 50
 batch_size: 32
 pin_memory: true
 num_workers: 3
-lr: 1.0e-4
+lr: 0.000001
 num_classes: 10
 train_rate: 0.8
 

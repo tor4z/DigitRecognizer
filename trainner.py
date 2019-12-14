@@ -16,7 +16,7 @@ class Trainner(object):
         self.opt = opt
         self.model = resnet18(pretrained=False, num_classes=opt.num_classes).to(opt.device)
         self.optimizer = optim.Adam(self.model.parameters(), lr=opt.lr)
-        self.scheduler = optim.lr_scheduler.StepLR(self.optimizer, step_size=opt.step_size, gamma=opt.gamme)
+        # self.scheduler = optim.lr_scheduler.StepLR(self.optimizer, step_size=opt.step_size, gamma=opt.gamma)
         self.criterion = nn.BCEWithLogitsLoss().to(opt.device)
         log_dir = os.path.join(opt.log_dir, opt.runtime_id)
 
@@ -68,7 +68,7 @@ class Trainner(object):
             self.train_epoch(train_dl)
             self.validate(validate_dl)
             self.epoch += 1
-            self.scheduler.step()
+            # self.scheduler.step()
 
     def test(self, test_dl):
         iterator = tqdm(test_dl, leave=True, dynamic_ncols=True)
